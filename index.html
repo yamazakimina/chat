@@ -14,10 +14,13 @@
 
 <div class="wrap">
     <div>
-        <div class="name"> 名前：<input type="text" id="uname"> </div>
+        <div class="name"> Name：<input type="text" id="uname"> </div>
         <div>
             <textarea id="text" cols="30" rows="10"></textarea>
-            <div class="bt_out"><button id="send" type="button" class="btn btn-success  btn-lg">送信</button></div>
+            <div class="bt_out">
+                <button id="send" type="button" class="btn btn-success  btn-lg">送信</button>
+                <button id="delete" type="button" class="btn btn-secondary btn-lg">削除</button>
+            </div>
         </div>
         <div id="output" style="border:1px solid gray; overflow: scroll; height: 500px;"></div>
     </div>
@@ -68,23 +71,24 @@
         set(newPostRef,msg); //ユニークkeyとmsg
     });
 
-    $("#text").on("keydown",function (e) {
-        console.log(e.key);
-        if(e.key == "Enter"){
-            const msg = {
-                uname : $("#uname").val(),
-                text  : $("#text").val()
-            };
-            const newPostRef = push(dbRef);
-            set(newPostRef, msg);//ユニークKEYとMSG
-        }
-    });
+    // $("#text").on("keydown",function (e) {
+    //     console.log(e.key);
+    //     if(e.key == "Enter"){
+    //         const msg = {
+    //             uname : $("#uname").val(),
+    //             text  : $("#text").val()
+    //         };
+    //         const newPostRef = push(dbRef);
+    //         set(newPostRef, msg);//ユニークKEYとMSG
+    //     }
+    // });
     
     onChildAdded(dbRef,function(data){
         const msg = data.val(); //Objectデータを取得
         const key = data.key; //ユニークkeyを取得（一部チャットを削除したい時とかに使える）
         const h = '<p>'+msg.uname+'<br>'+msg.text+'</p>';
         $("#output").append(h);
+        $("textarea").val(""); 
     });
     let hakka = document.getElementById('send');
 
@@ -92,7 +96,11 @@
         let chatArea = document.getElementById('output'),
         chatAreaHeight = chatArea.scrollHeight;
         chatArea.scrollTop = chatAreaHeight;
-})
+    })
+    $("#delete").on("click",function(){
+        remove(dbRef); 
+        $("#output").empty(); 
+    });
   </script>
 
 </body>

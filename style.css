@@ -10,14 +10,14 @@
 .name{
     margin: 10px;
     width: 600px;
-    text-align: center;
 }
 .btn{
     margin-bottom: 20px;
+    margin: 10px;
 }
 .bt_out{
     display: flex;
-    justify-content: center;
+    justify-content: right;
 }
 textarea{
     width: 600px;
