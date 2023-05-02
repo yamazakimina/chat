@@ -1,0 +1,24 @@
+@charset "utf-8";
+*{
+    cursor: url(tori.png),auto;
+}
+.wrap{
+    display: flex;
+    justify-content: center;
+    background-color: #DDFFDD;
+}
+.name{
+    margin: 10px;
+    width: 600px;
+    text-align: center;
+}
+.btn{
+    margin-bottom: 20px;
+}
+.bt_out{
+    display: flex;
+    justify-content: center;
+}
+textarea{
+    width: 600px;
+}
