@@ -18,6 +18,7 @@
         <div>
             <textarea id="text" cols="30" rows="10"></textarea>
             <div class="bt_out">
+                <button id="start_btn" type="button" class="btn btn-light">音声入力</button>
                 <button id="send" type="button" class="btn btn-success  btn-lg">送信</button>
                 <button id="delete" type="button" class="btn btn-secondary btn-lg">削除</button>
             </div>
@@ -31,6 +32,30 @@
 
 <!-- JQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    const speech = new webkitSpeechRecognition();
+    speech.lang = 'ja-JP';
+
+    const start_btn = document.getElementById('start_btn');
+    const content = document.getElementById('text');
+
+    start_btn.addEventListener('click', function () {
+        // 音声認識をスタート
+        speech.start();
+    });
+    //音声自動文字起こし機能
+    speech.onresult = function (e) {
+        speech.stop();
+        if (e.results[0].isFinal) {
+            var autotext = e.results[0][0].transcript;
+            content.innerHTML += autotext;
+        }
+    }
+    speech.onend = () =>
+    {
+        speech.start()
+    };
+</script>
 <!-- JQuery -->
 
 <!-- Bootstrap Javascript(jQuery含む) -->
@@ -90,6 +115,7 @@
         $("#output").append(h);
         $("textarea").val(""); 
     });
+
     let hakka = document.getElementById('send');
 
         hakka.addEventListener('click', function() {
